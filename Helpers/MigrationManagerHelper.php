@@ -367,7 +367,7 @@ class MigrationManagerHelper
 	{
 		$retVal = null;
 		$output = null;
-		echo "Creating scheme for '{$this->dbname}'....\n";
+		echo "Creating scheme for '{$this->dbname}'....";
 		exec("mysqldump --host={$this->host} --password={$this->password} -u {$this->user} --dump-date=false --skip-triggers --no-autocommit --disable-keys --add-drop-table --set-charset --default-character-set={$this->encoding} --no-data {$this->dbname} --skip-comments 2>&1", $output, $retVal);
 		echo ($retVal == 0) ? "ok\n" : die("Error: " . print_r($output, 1));
 
@@ -393,7 +393,7 @@ class MigrationManagerHelper
 	{
 		$retVal = null;
 		$output = null;
-		echo "Creating data for '{$this->dbname}'....\n";
+		echo "Creating data for '{$this->dbname}'....";
 		system("mysqldump --host={$this->host} --password={$this->password} -u {$this->user} --dump-date=false --skip-triggers --no-autocommit --disable-keys --set-charset --default-character-set={$this->encoding} --no-create-info --extended-insert=false  --result-file={$path}/data.sql {$this->dbname} --skip-comments 2>&1", $retVal);
 		echo ($retVal == 0) ? "ok\n" : die("Error: " . print_r($output, 1));
 	}
@@ -409,7 +409,7 @@ class MigrationManagerHelper
 	{
 		$output = null;
 		$retVal = null;
-		echo "Creating triggers for '{$this->dbname}'....\n";
+		echo "Creating triggers for '{$this->dbname}'....";
 		exec("mysqldump --host={$this->host} --password={$this->password} -u {$this->user} --dump-date=false --disable-keys  --default-character-set={$this->encoding} --no-create-info --no-data --extended-insert=false --triggers=true {$this->dbname} --skip-comments 2>&1 ", $output, $retVal);
 		echo ($retVal == 0) ? "ok\n" : die("Error: " . print_r($output, 1));
 
@@ -432,7 +432,7 @@ class MigrationManagerHelper
 	{
 		$output = null;
 		$retVal = null;
-		echo "Creating stored procedures for '{$this->dbname}'....\n";
+		echo "Creating stored procedures for '{$this->dbname}'....";
 		exec("mysqldump --host={$this->host} --password={$this->password} -u {$this->user} --dump-date=false --routines --default-character-set={$this->encoding} --no-create-info --no-data --extended-insert=false --triggers=false {$this->dbname} --skip-comments 2>&1", $output, $retVal);
 		echo ($retVal == 0) ? "ok\n" : die("Error: " . print_r($output, 1));
 
@@ -443,6 +443,6 @@ class MigrationManagerHelper
 		$spData = preg_replace('%/\*![\d]+\sDEFINER.*?\*/%si', '', $spData);
 		file_put_contents("{$path}/procedures.sql", $spData);
 
-		echo "\nCompleted...\n";
+		//echo "\nCompleted...\n";
 	}
 }
